@@ -19,3 +19,4 @@ This harness supports a technical content creator working on a personal blog pub
 - **prior-content.md** — Index of published articles and videos for continuity
 - **medium-format.md** — Medium-specific formatting and publishing conventions
 - **youtube-format.md** — YouTube description format, chapter markers, and tags
+- **notes/** — Working notes directory. Load all files in this directory at session start — they are always in scope.
