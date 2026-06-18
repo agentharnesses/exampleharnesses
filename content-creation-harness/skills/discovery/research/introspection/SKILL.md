@@ -14,7 +14,8 @@ Check what has already been covered before investing in new research.
 
 ## What to do
 
-1. Read `references/prior-content.md`
+1. If this is the first time prior-content.md is being read this session, run `maintenance/update-references/` first
+2. Read `references/prior-content.md`
 2. Identify prior content that overlaps with or relates to the current topic
 3. Return:
    - Directly relevant prior content (may reduce research needed)

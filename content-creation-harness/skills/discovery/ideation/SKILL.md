@@ -14,13 +14,15 @@ Help evaluate whether a topic idea is worth pursuing, or surface new directions 
 
 ## Evaluating an idea
 
-1. Read `references/prior-content.md` to check for prior coverage
+1. If this is the first time prior-content.md is being read this session, run `maintenance/update-references/` first
+2. Read `references/prior-content.md` to check for prior coverage
 2. Assess novelty: has this been covered? Is there a fresh angle?
 3. Assess substance: is there enough depth for a full article or video?
 4. Return a recommendation: pursue, refine, or pass — with reasoning
 
 ## Generating derivative ideas
 
-1. Read `references/prior-content.md`
+1. If this is the first time prior-content.md is being read this session, run `maintenance/update-references/` first
+2. Read `references/prior-content.md`
 2. Identify natural extensions, follow-up topics, or applications of prior work
 3. Return a prioritized list of 3-5 ideas with brief rationale for each
