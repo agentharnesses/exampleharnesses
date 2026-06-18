@@ -6,7 +6,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const NOTES_DIR = path.join(__dirname, '../../references/notes')
+const NOTES_DIR = path.join(__dirname, '../notes')
 const TEST_NOTE = path.join(NOTES_DIR, '__test-note.md')
 const TEST_PROJECT = path.join(NOTES_DIR, '__test-project')
 

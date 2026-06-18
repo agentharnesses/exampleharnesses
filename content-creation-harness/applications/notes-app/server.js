@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 import multer from 'multer'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-export const NOTES_DIR = path.join(__dirname, '../references/notes')
+export const NOTES_DIR = path.join(__dirname, 'notes')
 fs.mkdirSync(NOTES_DIR, { recursive: true })
 
 const ASSETS_DIR = path.join(NOTES_DIR, 'assets')

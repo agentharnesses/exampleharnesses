@@ -14,6 +14,19 @@ export default function App() {
 
   useEffect(() => { refreshTree() }, [refreshTree])
 
+  useEffect(() => {
+    const prevent = e => {
+      if (e.target?.closest?.('.ProseMirror')) return
+      e.preventDefault()
+    }
+    document.addEventListener('dragover', prevent)
+    document.addEventListener('drop', prevent)
+    return () => {
+      document.removeEventListener('dragover', prevent)
+      document.removeEventListener('drop', prevent)
+    }
+  }, [])
+
   async function handleNewNote() {
     const name = `untitled-${Date.now()}.md`
     await api.saveNote(name, '')
@@ -26,6 +39,15 @@ export default function App() {
     if (!name) return
     const slug = name.toLowerCase().replace(/\s+/g, '-')
     await api.createProject(slug)
+    await refreshTree()
+  }
+
+  async function handleRenameProject(oldName, newName) {
+    const slug = newName.toLowerCase().replace(/\s+/g, '-')
+    await api.renameProject(oldName, slug)
+    if (selectedPath?.startsWith(oldName + '/')) {
+      setSelectedPath(selectedPath.replace(oldName + '/', slug + '/'))
+    }
     await refreshTree()
   }
 
@@ -49,6 +71,7 @@ export default function App() {
         onNewNote={handleNewNote}
         onNewProject={handleNewProject}
         onMove={handleMove}
+        onRenameProject={handleRenameProject}
       />
       {selectedPath
         ? <Editor

@@ -30,6 +30,14 @@ export async function moveNote(from, to) {
   })
 }
 
+export async function renameProject(oldName, newName) {
+  await fetch(`${BASE}/notes/move`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: oldName, to: newName }),
+  })
+}
+
 export async function createProject(name) {
   await fetch(`${BASE}/projects`, {
     method: 'POST',

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Image from '@tiptap/extension-image'
+import { ResizableImage } from './ResizableImage.jsx'
 import Link from '@tiptap/extension-link'
 import { Markdown } from 'tiptap-markdown'
 import * as api from './api.js'
@@ -23,7 +23,7 @@ export default function Editor({ notePath, onRename }) {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Image,
+      ResizableImage,
       Link.configure({
         openOnClick: true,
         HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer' },
@@ -31,13 +31,31 @@ export default function Editor({ notePath, onRename }) {
       Markdown,
     ],
     content: '',
+    editorProps: {
+      handleDrop(view, event) {
+        const files = Array.from(event.dataTransfer?.files ?? [])
+        const imageFile = files.find(f => f.type.startsWith('image/'))
+        if (!imageFile) return false
+        api.uploadImage(imageFile).then(url => {
+          const { schema, tr } = view.state
+          const nodeType = schema.nodes.image
+          const node = nodeType?.create({ src: url })
+          if (node) view.dispatch(tr.replaceSelectionWith(node))
+        })
+        return true
+      },
+    },
     onUpdate({ editor }) {
       setUnsaved(true)
       clearTimeout(saveTimer.current)
       saveTimer.current = setTimeout(async () => {
-        const md = editor.storage.markdown.getMarkdown()
-        await api.saveNote(currentPath.current, md)
-        setUnsaved(false)
+        try {
+          const md = editor.storage.markdown.getMarkdown()
+          await api.saveNote(currentPath.current, md)
+          setUnsaved(false)
+        } catch (err) {
+          console.error('autosave failed:', err)
+        }
       }, 1000)
     },
   })
@@ -45,7 +63,7 @@ export default function Editor({ notePath, onRename }) {
   useEffect(() => {
     if (!editor) return
     api.fetchNote(notePath).then(content => {
-      editor.commands.setContent(content)
+      editor.commands.setContent(content, false)
       setUnsaved(false)
     })
     return () => clearTimeout(saveTimer.current)
@@ -99,7 +117,7 @@ export default function Editor({ notePath, onRename }) {
         onKeyDown={e => e.key === 'Enter' && e.target.blur()}
         placeholder="Untitled"
       />
-      {unsaved && <div className="unsaved-indicator">Unsaved</div>}
+      <div className="unsaved-indicator" style={{ visibility: unsaved ? 'visible' : 'hidden' }}>Unsaved</div>
       {editor && (
         <BubbleMenu
           editor={editor}
