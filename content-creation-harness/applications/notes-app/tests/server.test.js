@@ -81,3 +81,28 @@ describe('notes API', () => {
     expect(fs.existsSync(path.join(TEST_PROJECT, '__test-note.md'))).toBe(true)
   })
 })
+
+describe('images API', () => {
+  const ASSETS_DIR = path.join(NOTES_DIR, 'assets')
+  let uploadedFile = null
+
+  afterEach(() => {
+    if (uploadedFile && fs.existsSync(uploadedFile)) fs.unlinkSync(uploadedFile)
+    uploadedFile = null
+  })
+
+  it('POST /api/images saves file and returns asset url', async () => {
+    const tmpPath = path.join(ASSETS_DIR, '__upload-src.png')
+    fs.mkdirSync(ASSETS_DIR, { recursive: true })
+    fs.writeFileSync(tmpPath, Buffer.from('fakeimagedata'))
+
+    const res = await request(app)
+      .post('/api/images')
+      .attach('image', tmpPath)
+
+    fs.unlinkSync(tmpPath)
+    expect(res.status).toBe(200)
+    expect(res.body.url).toMatch(/^\/assets\/\d+\.png$/)
+    uploadedFile = path.join(ASSETS_DIR, path.basename(res.body.url))
+  })
+})

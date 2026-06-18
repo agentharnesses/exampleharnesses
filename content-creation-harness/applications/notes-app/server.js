@@ -2,13 +2,25 @@ import express from 'express'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import multer from 'multer'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export const NOTES_DIR = path.join(__dirname, '../references/notes')
 fs.mkdirSync(NOTES_DIR, { recursive: true })
 
+const ASSETS_DIR = path.join(NOTES_DIR, 'assets')
+fs.mkdirSync(ASSETS_DIR, { recursive: true })
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: ASSETS_DIR,
+    filename: (_req, _file, cb) => cb(null, `${Date.now()}.png`),
+  }),
+})
+
 export const app = express()
 app.use(express.json())
+app.use('/assets', express.static(ASSETS_DIR))
 
 function buildTree(dir, base = '') {
   const entries = fs.readdirSync(dir, { withFileTypes: true })
@@ -96,6 +108,11 @@ app.post('/api/projects', (req, res) => {
   } catch (e) {
     res.status(400).json({ error: e.message })
   }
+})
+
+app.post('/api/images', upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'no file' })
+  res.json({ url: `/assets/${req.file.filename}` })
 })
 
 const PORT = 3001
