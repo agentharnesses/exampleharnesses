@@ -74,9 +74,10 @@ export default function Editor({ notePath, onRename }) {
     const content = editor?.storage.markdown.getMarkdown() ?? ''
     await api.saveNote(newPath, content)
     await api.deleteNote(currentPath.current)
+    const oldPath = currentPath.current
     currentPath.current = newPath
-    onRename(notePath, newPath)
-  }, [title, dir, editor, notePath, onRename])
+    onRename(oldPath, newPath)
+  }, [title, dir, editor, onRename])
 
   function applyLink() {
     if (linkUrl) {
