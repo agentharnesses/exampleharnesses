@@ -68,6 +68,7 @@ export default function Editor({ notePath, onRename }) {
   }, [editor])
 
   const handleTitleBlur = useCallback(async () => {
+    clearTimeout(saveTimer.current)
     const filename = titleToFilename(title)
     const newPath = dir ? `${dir}/${filename}` : filename
     if (newPath === currentPath.current) return

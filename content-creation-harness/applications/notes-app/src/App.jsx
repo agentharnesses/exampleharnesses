@@ -35,6 +35,11 @@ export default function App() {
     if (selectedPath === from) setSelectedPath(to)
   }
 
+  const handleRename = useCallback((oldPath, newPath) => {
+    setSelectedPath(newPath)
+    refreshTree()
+  }, [refreshTree])
+
   return (
     <div className="app">
       <Sidebar
@@ -49,7 +54,7 @@ export default function App() {
         ? <Editor
             key={selectedPath}
             notePath={selectedPath}
-            onRename={(oldPath, newPath) => { setSelectedPath(newPath); refreshTree() }}
+            onRename={handleRename}
           />
         : <div className="empty-state">Select or create a note</div>
       }
