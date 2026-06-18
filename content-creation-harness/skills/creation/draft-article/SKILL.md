@@ -1,5 +1,5 @@
 ---
-name: write
+name: draft-article
 description: Draft and structure Medium articles from working notes and learning documents.
 ---
 

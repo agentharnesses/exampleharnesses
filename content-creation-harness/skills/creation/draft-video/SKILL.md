@@ -1,5 +1,5 @@
 ---
-name: produce
+name: draft-video
 description: Write YouTube video scripts, descriptions, and chapter markers from working notes.
 ---
 
