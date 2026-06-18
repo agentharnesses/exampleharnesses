@@ -7,6 +7,10 @@ description: Run spelling, grammar, and readability passes on a finished draft w
 
 Catch errors and flag readability issues in a finished draft. The goal is correctness, not rewriting.
 
+## Inputs
+
+- `references/brand-voice.md` — tone and style reference, to preserve the author's voice while flagging errors
+
 ## What to do
 
 1. Run a spelling and grammar pass — flag errors with line references, do not silently fix
