@@ -294,4 +294,6 @@ A comprehensive handbook exploring frequency analysis and the frequency domain �
 
 ## Videos (YouTube)
 
-<!-- Add entries as videos are published -->
+**The Transformer — Intuitively and Exhaustively Explained**
+https://www.youtube.com/watch?v=lKhtFHL9d80
+A video deep-dive into the transformer architecture, the foundational model behind modern LLMs. Covers the full architecture — self-attention, multi-head attention, positional encoding, and feed-forward layers — with an intuitive yet thorough treatment aimed at building a genuine mental model of how transformers work.
