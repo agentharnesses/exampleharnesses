@@ -23,6 +23,15 @@ Keep the working notes system organized and searchable. Notes are text files wit
 1. Given a new topic, scan existing note files for relevant prior content
 2. Return a summary of what's already been noted and any open questions
 
+## Launching the notes browser
+
+When the user asks to view or edit notes in the browser:
+
+1. Run `npm run dev` from `content-creation-harness/applications/notes-app/`
+2. The app opens at `http://localhost:5173`
+3. Confirm the server is running by checking for the Vite startup message before reporting back to the user
+4. To stop the server: `pkill -f "vite"` or Ctrl+C in the terminal where it was started
+
 ## Note File Template
 
     # [Topic]
