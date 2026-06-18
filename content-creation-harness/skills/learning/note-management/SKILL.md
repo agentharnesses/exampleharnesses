@@ -5,7 +5,7 @@ description: Create, organize, and search working note files — text documents 
 
 ## Role
 
-Keep the working notes system organized and searchable. Notes are text files with annotations and screenshot references, created during research and learning. Distinct from `discovery/research/introspection/`, which scans published content — this skill scans and manages working notes.
+Keep the working notes system organized and searchable. Notes are text files with annotations and screenshot references, created during research and learning. Distinct from `discovery/introspection/`, which scans published content — this skill scans and manages working notes.
 
 ## Creating a new note file
 
