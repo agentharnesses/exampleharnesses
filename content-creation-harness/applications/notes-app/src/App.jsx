@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import Sidebar from './Sidebar.jsx'
 import Editor from './Editor.jsx'
+import Terminal from './Terminal.jsx'
 import * as api from './api.js'
 import './App.css'
 
@@ -13,6 +14,12 @@ export default function App() {
   }, [])
 
   useEffect(() => { refreshTree() }, [refreshTree])
+
+  useEffect(() => {
+    const es = new EventSource('/api/notes/watch')
+    es.onmessage = () => refreshTree()
+    return () => es.close()
+  }, [refreshTree])
 
   useEffect(() => {
     const prevent = e => {
@@ -34,19 +41,22 @@ export default function App() {
     setSelectedPath(name)
   }
 
-  async function handleNewProject() {
-    const name = prompt('Project name:')
+  async function handleNewFolder(parentPath = '') {
+    const name = prompt('Folder name:')
     if (!name) return
     const slug = name.toLowerCase().replace(/\s+/g, '-')
-    await api.createProject(slug)
+    const fullPath = parentPath ? `${parentPath}/${slug}` : slug
+    await api.createFolder(fullPath)
     await refreshTree()
   }
 
-  async function handleRenameProject(oldName, newName) {
+  async function handleRenameFolder(oldPath, newName) {
     const slug = newName.toLowerCase().replace(/\s+/g, '-')
-    await api.renameProject(oldName, slug)
-    if (selectedPath?.startsWith(oldName + '/')) {
-      setSelectedPath(selectedPath.replace(oldName + '/', slug + '/'))
+    const parent = oldPath.includes('/') ? oldPath.substring(0, oldPath.lastIndexOf('/') + 1) : ''
+    const newPath = parent + slug
+    await api.renameFolder(oldPath, newPath)
+    if (selectedPath?.startsWith(oldPath + '/')) {
+      setSelectedPath(selectedPath.replace(oldPath + '/', newPath + '/'))
     }
     await refreshTree()
   }
@@ -69,18 +79,21 @@ export default function App() {
         selectedPath={selectedPath}
         onSelectNote={setSelectedPath}
         onNewNote={handleNewNote}
-        onNewProject={handleNewProject}
+        onNewFolder={handleNewFolder}
         onMove={handleMove}
-        onRenameProject={handleRenameProject}
+        onRenameFolder={handleRenameFolder}
       />
-      {selectedPath
-        ? <Editor
-            key={selectedPath}
-            notePath={selectedPath}
-            onRename={handleRename}
-          />
-        : <div className="empty-state">Select or create a note</div>
-      }
+      <div className="main-panel">
+        {selectedPath
+          ? <Editor
+              key={selectedPath}
+              notePath={selectedPath}
+              onRename={handleRename}
+            />
+          : <div className="empty-state">Select or create a note</div>
+        }
+        <Terminal />
+      </div>
     </div>
   )
 }

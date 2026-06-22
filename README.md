@@ -11,6 +11,7 @@ An agent harness is a standardized way to give an AI agent a role, context, and 
 | Harness | Description |
 |---|---|
 | [content-creation-harness](./content-creation-harness/) | Writing, editing, and publishing across formats and channels |
+| [job-application-harness](./job-application-harness/) | Researching roles, tailoring application materials, and tracking the job search pipeline |
 
 ## Structure
 

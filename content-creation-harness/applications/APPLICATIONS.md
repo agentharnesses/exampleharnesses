@@ -1,0 +1,1 @@
+The applications directory contains a notes app, which is used to take notes. The agent can create and modify notes within the `notes-app/notes/` directory. Each folder is a project. `assets` exists to store images.

@@ -18,7 +18,7 @@ The user may have modified the harness directly between sessions or between prom
 
 ## What to do
 
-1. Identify which index files need updating (HARNESS.md, a SKILLS.md, REFERENCES.md)
+1. Identify which index files by using reverse progressive disclosure to search through the harness and find 
 2. Read the current file
 3. Apply the change: add, update, or remove the relevant entry
 4. Ensure descriptions remain accurate and routing summaries reflect actual contents

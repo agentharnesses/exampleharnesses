@@ -1,0 +1,8 @@
+# Private application materials
+references/resumes/*.docx
+references/leads.csv
+references/job-descriptions/
+references/target-roles.md
+
+# Mac
+.DS_Store

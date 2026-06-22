@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "content-creation-harness": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/danielwarfield/Documents/GitHub/exampleharnesses/content-creation-harness"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "content-creation@content-creation-harness": true
+  }
+}

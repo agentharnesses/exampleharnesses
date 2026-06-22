@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "job-application-harness": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/danielwarfield/Documents/GitHub/exampleharnesses/job-application-harness"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "job-application@job-application-harness": true
+  }
+}

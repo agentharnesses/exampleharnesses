@@ -30,19 +30,19 @@ export async function moveNote(from, to) {
   })
 }
 
-export async function renameProject(oldName, newName) {
+export async function renameFolder(oldPath, newPath) {
   await fetch(`${BASE}/notes/move`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: oldName, to: newName }),
+    body: JSON.stringify({ from: oldPath, to: newPath }),
   })
 }
 
-export async function createProject(name) {
+export async function createFolder(path) {
   await fetch(`${BASE}/projects`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ name: path }),
   })
 }
 
