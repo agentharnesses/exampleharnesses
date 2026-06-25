@@ -8,6 +8,10 @@ references/job-descriptions/*
 references/answers/*
 !references/answers/.gitkeep
 
+# Claude settings
+.claude/settings.json
+.claude/settings.local.json
+
 # Mac
 .DS_Store
 
