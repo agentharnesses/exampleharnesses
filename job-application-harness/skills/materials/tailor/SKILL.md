@@ -15,10 +15,13 @@ Before starting, confirm you have:
 
 If the job listing needs to be fetched and the page is JavaScript-rendered (WebFetch returns only the title), do not ask the user to paste it. Instead, provide the posting URL from `leads.csv` so the user can open it themselves and paste the text.
 
-Read all available resumes with `pandoc`:
+Read **every** resume in `references/resumes/` before drafting anything — not just the most obviously relevant ones. All existing resumes are approved and contain valid source material; the goal is to find the best language for each point across the full set. Convert all of them in parallel with `pandoc`:
+
 ```bash
-pandoc --track-changes=all references/resumes/<filename>.docx -o /tmp/<filename>.md
+ls references/resumes/*.docx | grep -v TEMPLATE | xargs -I{} bash -c 'pandoc --track-changes=all "{}" -o "/tmp/$(basename "{}" .docx).md"'
 ```
+
+Then read all the converted markdown files before proceeding.
 
 When producing a new docx, always use `references/resumes/TEMPLATE_DanielWarfield_Resume_cover.docx` as the base. It has the correct formatting, page break, and structure. Replace only the `<w:t>` text nodes — do not rebuild runs or paragraphs. The paraIds for variable sections are:
 
@@ -78,17 +81,22 @@ Do not produce a full resume document in this step. The competencies and skills 
 
 ## Step 4: Verify Page Count (after docx is produced)
 
-After the docx is created, confirm it is exactly 2 pages — cover letter on page 1, resume on page 2. Convert to PDF with LibreOffice, then count pages:
+After the docx is created, confirm it is exactly 2 pages — cover letter on page 1, resume on page 2:
 
 ```bash
-python3 <harness_root>/skills/materials/docx/scripts/office/soffice.py --headless --convert-to pdf <output.docx>
-pdfinfo <output.pdf> | grep Pages
+bash skills/materials/tailor/scripts/count_pages.sh <output.docx>
 ```
 
-If `pdfinfo` is unavailable, render to images and count the output files:
-```bash
-pdftoppm -jpeg -r 72 <output.pdf> /tmp/pages
-ls /tmp/pages*.jpg | wc -l
-```
+This script handles LibreOffice path discovery on both Mac and Linux and prints the page count.
 
 If the document is not exactly 2 pages, investigate: a 3rd page usually means the resume content overflows, which requires tightening bullets or reducing spacing. A 1-page result means the page break is missing or malformed.
+
+## Step 5: Open for Editorial Review
+
+After the page count is confirmed, open the document in LibreOffice:
+
+```bash
+open -a "LibreOffice" <output.docx>
+```
+
+Then ask the user: "Open in LibreOffice — take a look and let me know if anything needs adjusting."

@@ -13,24 +13,18 @@ No immediate action is required upon loading the harness. This document is a ref
 
 Use the `agent-harnesses` skill to explore the harness, just in time, based on prompts from the user. Run `disclose.py` with `python3` against this harness directory to progressively explore its contents — select only what is relevant and repeat until the session is complete, then read the returned resources.
 
-When **maintaining the harness** (adding, moving, or renaming files), use `reverse_disclose.py` to find every `.md` file above the target that links to it — so you can update all references that would break:
-
-```
-python3 .claude/skills/agent-harnesses/scripts/reverse_disclose.py <target_path>
-```
-
-Run this before and after any structural change. The output lists each ancestor `.md` file that references the target, with line numbers and link text, so nothing is left pointing to a stale path.
+When **maintaining the harness** (adding, moving, or renaming files), consult the maintenance information in the agent-harnesses skill.
 
 ## Skills
 
 - **explore/** — Fetch or accept job descriptions and other external information before working on an application
 - **lead-management/** — Research target companies and roles, log applications, and track status across the pipeline
-- **materials/** — Draft and tailor resumes, cover letters, and other application documents
+- **materials/** — Draft and tailor resumes, cover letters, open-ended question responses, and other application documents
 - **maintenance/** — Update harness structure, references, and skills as the search evolves
-
 ## References
 
-- **leads.csv** — Application pipeline tracker (company, role, posting, status, applied date, resume, compensation, location)
+- **leads.csv** — Application pipeline tracker (company, role, posting, status, applied date, resume, compensation, location). **When an application is submitted, the `status` and `applied_date` columns must be filled in immediately** — blank status means pending, so an un-updated row will be re-recommended as a lead.
 - **job-descriptions/** — Saved job postings in markdown, used as input for tailoring materials and fit assessment
 - **resumes/** — Tailored resumes, one per target role or application
+- **answers/** — Saved responses to application questions, including standard fields (name, email, phone, location, LinkedIn) and open-ended responses. Used as source material for future applications.
 - **target-roles.md** — Profile of target roles, industries, and criteria for a good fit

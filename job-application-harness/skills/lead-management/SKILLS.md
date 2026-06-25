@@ -2,7 +2,8 @@
 description: Skills for researching target companies and roles, and tracking application status across the pipeline.
 ---
 
-No skills yet. Add skills here as the search evolves.
+- **recommended-apply/** — When the user wants to apply but hasn't named a specific role. Ranks pending leads by fit, confirms the choice, then hands off to the tailor skill.
+- **apply/** — When the user is ready to submit an application. Opens the job listing in the browser and reveals the tailored resume in Finder, then stays observing the browser to answer questions about the form.
 
 ## Notes
 

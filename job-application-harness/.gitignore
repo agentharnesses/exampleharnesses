@@ -1,8 +1,15 @@
 # Private application materials
-references/resumes/*.docx
 references/leads.csv
-references/job-descriptions/
 references/target-roles.md
+references/resumes/*
+!references/resumes/.gitkeep
+references/job-descriptions/*
+!references/job-descriptions/.gitkeep
+references/answers/*
+!references/answers/.gitkeep
 
 # Mac
 .DS_Store
+
+# Playwright
+.playwright-mcp/

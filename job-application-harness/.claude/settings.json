@@ -1,4 +1,5 @@
 {
+  "enableAllProjectMcpServers": true,
   "extraKnownMarketplaces": {
     "job-application-harness": {
       "source": {
